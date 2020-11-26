@@ -21,7 +21,6 @@ public class AuthFilterRegistrationBean extends FilterRegistrationBean<Filter> {
     @Autowired
     UserService userService;
 
-
     @PostConstruct
     public void init() {
         setUrlPatterns(List.of("/managebooks/*"));
