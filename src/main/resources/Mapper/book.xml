@@ -70,4 +70,8 @@
         call library.borrow_from_res(#{rid}, #{op})
     </insert>
 
+    <update id="deleteBookListById">
+        delete from booklist  where isbn = #{isbn}
+    </update>
+
 </mapper>

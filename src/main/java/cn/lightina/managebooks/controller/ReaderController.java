@@ -119,7 +119,7 @@ public class ReaderController {
         User user = (User) request.getSession().getAttribute("user");
         ProcessResult ar;
         bookList.setOperator(user.getUserId());
-        bookService.addBookList(bookList,0);
+        bookService.addBookList(bookList, 0);
         ar = new ProcessResult(true);
         return ar;
     }
@@ -143,7 +143,7 @@ public class ReaderController {
             @PathVariable(value = "reservationId") Integer reservationId) {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
-        bookService.insertBorrow(reservationId,user.getUserId());
+        bookService.insertBorrow(reservationId, user.getUserId());
         List<ReservationDetail> list = bookService.getResList();
         model.addAttribute("list", list);
         return "admin_processreservation";
@@ -163,20 +163,20 @@ public class ReaderController {
     }
 
     // 查看借阅情况
-    @GetMapping(
+    @PostMapping(
             value = "/admin/delete")
     @ResponseBody
     public ProcessResult delBookList(
             Model model,
             HttpServletRequest request,
             @RequestBody BookList bookList) {
-        User user = (User) request.getSession().getAttribute("user");
         ProcessResult pr;
-        try{
+        try {
             bookService.deleteBookList(bookList);
-            pr=new ProcessResult(true);
-        }catch (Exception e){
-            pr=new ProcessResult(false);
+            pr = new ProcessResult(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            pr = new ProcessResult(false);
         }
         return pr;
     }

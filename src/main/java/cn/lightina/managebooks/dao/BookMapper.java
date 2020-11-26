@@ -37,10 +37,9 @@ public interface BookMapper {
 
     List<BorrowDetail> getBorList();
 
-    void insertBorrow(@Param("rid")int reservationId, @Param("op") int operator);
+    void insertBorrow(@Param("rid") int reservationId, @Param("op") int operator);
 
 
-    int deleteBookListById(@Param("isbn")String isbn);
-
+    int deleteBookListById(@Param("isbn") String isbn);
 
 }

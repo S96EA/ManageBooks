@@ -1,5 +1,6 @@
 var checkadd = [false, false, false, false];
 var checkdel = [false];
+
 //校验成功函数
 function success(Obj, counter, check, offset) {
     Obj.parent().parent().removeClass('has-error').addClass('has-success');
@@ -126,34 +127,32 @@ $('#delete').find('input').eq(0).change(function () {
 });
 
 $('#btn-delete').click(function (e) {
-    if (!checkadd.every(function (value) {
-            return value == true
-        })) {
-        e.preventDefault();
-        for (key in checkdel) {
-            if (!checkdel[key]) {
-                $('#delete').find('input').eq(key).parent().parent().removeClass('has-success').addClass('has-error')
+    // if (!checkadd.every(value => value === true)) {
+    //     e.preventDefault();
+    //     for (key in checkdel) {
+    //         if (!checkdel[key]) {
+    //             $('#delete').find('input').eq(key).parent().parent().removeClass('has-success').addClass('has-error')
+    //         }
+    //     }
+    // } else {
+    var ISBN = document.getElementById("dl-isbn").value;
+    var booklist = {
+        'isbn': ISBN
+    };
+    var JSONdata = JSON.stringify(booklist);
+    $.ajax({
+        type: "post",
+        url: "/managebooks/admin/delete",
+        data: JSONdata,
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result['status']) {
+                alert("删除成功");
+            } else {
+                alert("删除失败");
             }
         }
-    } else {
-        var ISBN = document.getElementById("dl-isbn").value;
-        var booklist = {
-            'isbn': ISBN
-        };
-        var JSONdata = JSON.stringify(booklist);
-        $.ajax({
-            type: "post",
-            url: "/managebooks/admin/delete",
-            data: JSONdata,
-            dataType: "json",
-            contentType: "application/json;charset=UTF-8",
-            success: function (result) {
-                if (result['success']) {
-                    alert("删除成功");
-                } else {
-                    alert("删除失败");
-                }
-            }
-        });
-    }
+    });
+    // }
 });
